@@ -192,6 +192,113 @@
         
 
 <div class="post">
+    <a href="/2025/11/09/2-ubuntu%E8%AE%BE%E7%BD%AEroot%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95/">
+        <h2 class="post-title">2.ubuntu设置root用户登录</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/11/9
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h2 id="一、启用-root-密码登录（简单直接）"><a href="#一、启用-root-密码登录（简单直接）" class="headerlink" title="一、启用 root 密码登录（简单直接）"></a>一、启用 root 密码登录（简单直接）</h2><h3 id="步骤-1：设置-root-密码"><a href="#步骤-1：设置-root-密码" class="headerlink" title="步骤 1：设置 root 密码"></a>步骤 1：设置 root 密码</h3><p>首先给 <code>root</code> 用户设置密码（默认 <code>root</code> 无密码，无法登录）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 普通用户执行，输入当前普通用户密码验证</span></span><br><span class="line"><span class="built_in">sudo</span> passwd root</span><br></pre></td></tr></table></figure>
+
+<p>执行后按提示输入两次 <code>root</code> 密码（密码不可见，输入正确即可），显示 <code>passwd: password updated successfully</code> 说明设置成功。</p>
+<h3 id="步骤-2：允许-root-密码登录（修改-SSH-配置）"><a href="#步骤-2：允许-root-密码登录（修改-SSH-配置）" class="headerlink" title="步骤 2：允许 root 密码登录（修改 SSH 配置）"></a>步骤 2：允许 root 密码登录（修改 SSH 配置）</h3><p>Ubuntu 默认 SSH 禁止 <code>root</code> 密码登录，需修改配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用 nano 编辑 SSH 配置（若没安装，先执行 sudo apt install nano -y）</span></span><br><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-3：修改配置项（关键）"><a href="#步骤-3：修改配置项（关键）" class="headerlink" title="步骤 3：修改配置项（关键）"></a>步骤 3：修改配置项（关键）</h3><p>在文件中找到以下配置，按如下修改：</p>
+<p>找到 <code>PermitRootLogin</code>：</p>
+<ul>
+<li>若显示 <code>PermitRootLogin prohibit-password</code>（默认值，禁止密码登录），改为 <code>PermitRootLogin yes</code>；</li>
+<li>若显示 <code>PermitRootLogin no</code>，直接改为 <code>PermitRootLogin yes</code>；</li>
+<li>若文件中没有该配置，直接在文件末尾添加 <code>PermitRootLogin yes</code>。</li>
+</ul>
+<p>确保 <code>PasswordAuthentication</code> 为 <code>yes</code>（允许密码登录，默认开启，若被注释则取消注释）：</p>
+<ol>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PasswordAuthentication <span class="built_in">yes</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="步骤-4：保存配置并重启-SSH-服务"><a href="#步骤-4：保存配置并重启-SSH-服务" class="headerlink" title="步骤 4：保存配置并重启 SSH 服务"></a>步骤 4：保存配置并重启 SSH 服务</h3><ul>
+<li><p>按 <code>Ctrl+O</code> → 回车保存 → <code>Ctrl+X</code> 退出 nano；</p>
+</li>
+<li><p>重启 SSH 服务使配置生效：</p>
+</li>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart sshd</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="步骤-5：测试-root-密码登录"><a href="#步骤-5：测试-root-密码登录" class="headerlink" title="步骤 5：测试 root 密码登录"></a>步骤 5：测试 root 密码登录</h3><p>本地或远程执行以下命令，输入 <code>root</code> 密码即可登录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地登录</span></span><br><span class="line">su root  <span class="comment"># 输入 root 密码</span></span><br><span class="line"><span class="comment"># 远程 SSH 登录（若服务器端口是 12310，加 -p 12310）</span></span><br><span class="line">ssh root@服务器IP -p 12310</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、启用-root-密钥登录（更安全，推荐）"><a href="#二、启用-root-密钥登录（更安全，推荐）" class="headerlink" title="二、启用 root 密钥登录（更安全，推荐）"></a>二、启用 root 密钥登录（更安全，推荐）</h2><p>如果想让 <code>root</code> 用密钥登录（无需密码，比密码登录安全），按以下步骤操作：</p>
+<h3 id="步骤-1：先完成普通用户的密钥配置（已配置可跳过）"><a href="#步骤-1：先完成普通用户的密钥配置（已配置可跳过）" class="headerlink" title="步骤 1：先完成普通用户的密钥配置（已配置可跳过）"></a>步骤 1：先完成普通用户的密钥配置（已配置可跳过）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096  <span class="comment"># 按 3 次回车，生成 ~/.ssh/id_rsa 和 id_rsa.pub</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-2：将本地公钥上传到-root-的授权列表"><a href="#步骤-2：将本地公钥上传到-root-的授权列表" class="headerlink" title="步骤 2：将本地公钥上传到 root 的授权列表"></a>步骤 2：将本地公钥上传到 root 的授权列表</h3><h4 id="方式-1：通过普通用户中转（推荐，无需-root-密码）"><a href="#方式-1：通过普通用户中转（推荐，无需-root-密码）" class="headerlink" title="方式 1：通过普通用户中转（推荐，无需 root 密码）"></a>方式 1：通过普通用户中转（推荐，无需 root 密码）</h4><ol>
+<li><p>先通过普通用户 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fruits</span><br></pre></td></tr></table></figure>
+
+<p> 登录服务器（已配置密钥可免密）：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh fruits@服务器IP</span><br></pre></td></tr></table></figure>
+
+<p>在服务器上，将 <code>fruits</code> 的公钥复制到 <code>root</code> 的 <code>authorized_keys</code>：</p>
+<ol>
+<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到 root（输入普通用户密码提权）</span></span><br><span class="line"><span class="built_in">sudo</span> -i</span><br><span class="line"><span class="comment"># 创建 root 的 .ssh 目录（若不存在）</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /root/.ssh &amp;&amp; <span class="built_in">chmod</span> 700 /root/.ssh</span><br><span class="line"><span class="comment"># 复制 fruits 的公钥到 root 的授权文件（若 fruits 已上传公钥）</span></span><br><span class="line"><span class="built_in">cat</span> /home/fruits/.ssh/authorized_keys &gt;&gt; /root/.ssh/authorized_keys</span><br><span class="line"><span class="comment"># 若本地公钥未上传到 fruits，先在本地执行（上传到 root）：</span></span><br><span class="line"><span class="comment"># ssh-copy-id -i ~/.ssh/id_rsa.pub root@服务器IP -p 12310</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="方式-2：本地直接上传（需-root-密码）"><a href="#方式-2：本地直接上传（需-root-密码）" class="headerlink" title="方式 2：本地直接上传（需 root 密码）"></a>方式 2：本地直接上传（需 root 密码）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本地执行，将公钥上传到 root 的授权列表（输入 root 密码）</span></span><br><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub root@服务器IP -p 12310</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-3：修复-root-密钥目录的权限（关键）"><a href="#步骤-3：修复-root-密钥目录的权限（关键）" class="headerlink" title="步骤 3：修复 root 密钥目录的权限（关键）"></a>步骤 3：修复 root 密钥目录的权限（关键）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到 root</span></span><br><span class="line"><span class="built_in">sudo</span> -i</span><br><span class="line"><span class="comment"># 设置正确权限（否则 SSH 会拒绝密钥登录）</span></span><br><span class="line"><span class="built_in">chmod</span> 600 /root/.ssh/authorized_keys</span><br><span class="line"><span class="built_in">chmod</span> 700 /root/.ssh</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-4：修改-SSH-配置（允许-root-密钥登录）"><a href="#步骤-4：修改-SSH-配置（允许-root-密钥登录）" class="headerlink" title="步骤 4：修改 SSH 配置（允许 root 密钥登录）"></a>步骤 4：修改 SSH 配置（允许 root 密钥登录）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>确保以下配置（无需 <code>PermitRootLogin yes</code>，密钥登录默认支持）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PermitRootLogin prohibit-password  <span class="comment"># 允许密钥登录，禁止密码登录（更安全）</span></span><br><span class="line">PubkeyAuthentication <span class="built_in">yes</span>  <span class="comment"># 开启公钥认证（默认开启）</span></span><br></pre></td></tr></table></figure>
+
+<p>保存后重启 SSH 服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart sshd</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-5：测试-root-密钥登录"><a href="#步骤-5：测试-root-密钥登录" class="headerlink" title="步骤 5：测试 root 密钥登录"></a>步骤 5：测试 root 密钥登录</h3><p>本地执行以下命令，无需密码即可登录 <code>root</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@服务器IP</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、禁用-root-登录（如需恢复默认安全配置）"><a href="#三、禁用-root-登录（如需恢复默认安全配置）" class="headerlink" title="三、禁用 root 登录（如需恢复默认安全配置）"></a>三、禁用 root 登录（如需恢复默认安全配置）</h2><p>若后续想禁用 <code>root</code> 登录，只需修改 SSH 配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 改为禁止 root 登录</span></span><br><span class="line">PermitRootLogin no</span><br><span class="line"><span class="comment"># 重启 SSH 服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart sshd</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见问题排查"><a href="#常见问题排查" class="headerlink" title="常见问题排查"></a>常见问题排查</h2><ol>
+<li><strong>root 登录提示 Permission denied</strong>：<ul>
+<li>检查 <code>sshd_config</code> 中 <code>PermitRootLogin</code> 是否为 <code>yes</code>（密码登录）或 <code>prohibit-password</code>（密钥登录）；</li>
+<li>密钥登录需确保 <code>/root/.ssh</code> 权限 700，<code>authorized_keys</code> 权限 600。</li>
+</ul>
+</li>
+<li><strong>SSH 重启失败</strong>：<ul>
+<li>执行 <code>sudo systemctl status sshd</code> 查看错误日志，大概率是 <code>sshd_config</code> 语法错误（比如缩进、拼写错误）。</li>
+</ul>
+</li>
+<li><strong>su root 提示 Authentication failure</strong>：<ul>
+<li>未设置 <code>root</code> 密码，执行 <code>sudo passwd root</code> 重新设置。</li>
+</ul>
+</li>
+</ol>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        
+        
+    </div>
+    <a href="/2025/11/09/2-ubuntu%E8%AE%BE%E7%BD%AEroot%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/2025/11/09/1-%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81%E6%8E%A8%E9%80%81%E4%BB%A3%E7%A0%81/">
         <h2 class="post-title">1.使用密钥连接服务器、推送代码</h2>
     </a>
@@ -368,7 +475,7 @@
         
         <span class="tag">
             
-            <a href="/tags/linux/" style="color: #ff7d73">linux</a>
+            <a href="/tags/linux/" style="color: #03a9f4">linux</a>
         </span>
         
     </div>
