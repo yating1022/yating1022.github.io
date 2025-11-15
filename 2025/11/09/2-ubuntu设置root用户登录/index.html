@@ -181,7 +181,10 @@
     </div>
     
     <div class="content" v-pre>
-        <h2 id="一、启用-root-密码登录（简单直接）"><a href="#一、启用-root-密码登录（简单直接）" class="headerlink" title="一、启用 root 密码登录（简单直接）"></a>一、启用 root 密码登录（简单直接）</h2><h3 id="步骤-1：设置-root-密码"><a href="#步骤-1：设置-root-密码" class="headerlink" title="步骤 1：设置 root 密码"></a>步骤 1：设置 root 密码</h3><p>首先给 <code>root</code> 用户设置密码（默认 <code>root</code> 无密码，无法登录）：</p>
+        <p>ubuntu默认不支持root账号登录，通过设置让root账号登录</p>
+<span id="more"></span>
+
+<h2 id="一、启用-root-密码登录（简单直接）"><a href="#一、启用-root-密码登录（简单直接）" class="headerlink" title="一、启用 root 密码登录（简单直接）"></a>一、启用 root 密码登录（简单直接）</h2><h3 id="步骤-1：设置-root-密码"><a href="#步骤-1：设置-root-密码" class="headerlink" title="步骤 1：设置 root 密码"></a>步骤 1：设置 root 密码</h3><p>首先给 <code>root</code> 用户设置密码（默认 <code>root</code> 无密码，无法登录）：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 普通用户执行，输入当前普通用户密码验证</span></span><br><span class="line"><span class="built_in">sudo</span> passwd root</span><br></pre></td></tr></table></figure>
 
 <p>执行后按提示输入两次 <code>root</code> 密码（密码不可见，输入正确即可），显示 <code>passwd: password updated successfully</code> 说明设置成功。</p>
