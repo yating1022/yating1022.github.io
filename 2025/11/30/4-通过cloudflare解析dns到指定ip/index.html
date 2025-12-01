@@ -178,10 +178,45 @@
         </span>
         
         
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="../../../../tags/dns/" style="color: #ffa2c4">
+                    dns
+                </a>
+            </span>
+            
+        </span>
+        
     </div>
     
     <div class="content" v-pre>
-        
+        <p>设置dns解析教程</p>
+<span id="more"></span>
+
+<h1 id="1-所需实现的效果"><a href="#1-所需实现的效果" class="headerlink" title="1.所需实现的效果"></a>1.所需实现的效果</h1><p>首先确定最终要实现的效果是什么样的，比如说我的博客最终是访问  <a target="_blank" rel="noopener" href="https://blog.bjyt.de/">https://blog.bjyt.de</a><br>前面的https是协议，你可以先不用管，先着眼于blog.bjyt.de，所谓的dns就是，其实服务器是通过ip访问的，但是你如果都使用ip访问，难记，而且很捞</p>
+<p>所以就需要使用dns来进行对应，比如说我这里的  blog.bjyt.de 对应的就是ip 74.48.63.119，怎么确认，使用windows的cmd工具命令，键入以下命令</p>
+<pre><code>ping blog.bjyt.de
+</code></pre>
+<p><img src="image-20251201113138545.png" alt="image-20251201113138545"></p>
+<p>这个就是已经解析完成了，而你的域名现在是顶级域名  <code>mdlldz.de</code>  所以需要使用二级域名进行解析，像 <code>www.mdlldz.de</code> <code>blog.mdlldz.de</code> 这种，一个顶级域名可以增加无数个二级域名</p>
+<h1 id="2-实现"><a href="#2-实现" class="headerlink" title="2.实现"></a>2.实现</h1><h2 id="1-登录cloudflare"><a href="#1-登录cloudflare" class="headerlink" title="1.登录cloudflare"></a>1.登录cloudflare</h2><p>再进入已经加入cloudflare的域名</p>
+<p><img src="image-20251201113436845.png" alt="image-20251201113436845"></p>
+<p><img src="image-20251201113511201.png" alt="image-20251201113511201"></p>
+<p>点击添加记录</p>
+<p><img src="image-20251201113545121.png" alt="image-20251201113545121"></p>
+<p>选择ipv4地址，名称这里因为是博客，就写blog就行，也可以自定义，看你选择，ip写我服务器的ip 74.48.63.119</p>
+<p>我这里写完后左上角就是 <code>blog.bjyt.de</code> 你应该是 <code>blog.mdlldz.de</code></p>
+<p><img src="image-20251201113749321.png" alt="image-20251201113749321"></p>
+<p>记得代理状态要关掉，仅dns就好，等后面教你怎么用他的这个代理实现cdn</p>
+<p>然后保存即可</p>
+<p>过一会儿，一两分钟，甚至马上去直接ping你刚才设置的二级域名，如果实现和上面的效果，dns解析就是完成了</p>
+
     </div>
     
     
