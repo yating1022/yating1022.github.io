@@ -42,6 +42,9 @@
 
 
 
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
 
 
 
@@ -294,6 +297,10 @@ sudo systemctl restart sshd
     
     
     
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
     
     
     
@@ -330,6 +337,20 @@ sudo systemctl restart sshd
     <script src="../../../../js/main.js"></script>
     
     
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23litWytw5a9YYfjpn",
+        clientSecret: "263220185a44717917fc30ea10b93f2aab160f54",
+        repo: "https://github.com/yating1022/comments.git",
+        owner: "yating1022",
+        admin: "yating1022".split(","),
+        language: "en, zh-CN, zh-TW, es-ES, fr, ru, de",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
 
 
 
