@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: linux | Fruits Blog</title>
+    <title>6.debian12安装idea | Fruits Blog</title>
     <meta name="author" content="Fruits" />
     <meta name="description" content="折腾之路永不停息~" />
     <meta name="keywords" content="" />
@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
-    <link rel="icon" href="../../images/avatar.jpg" />
+    <link rel="icon" href="../../../../images/avatar.jpg" />
     <link rel="preconnect" href="https://s4.zstatic.net" />
 <script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
 <link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
@@ -32,17 +32,24 @@
     rel="stylesheet"
     href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
 />
-<script src="../../js/lib/highlight.js"></script>
+<script src="../../../../js/lib/highlight.js"></script>
 
 
 
-<script src="../../js/lib/preview.js"></script>
+<script src="../../../../js/lib/preview.js"></script>
 
 
 
 
 
-<link rel="stylesheet" href="../../css/main.css" />
+<script src="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/gitalk/1.8.0/gitalk.min.css" />
+
+
+
+
+
+<link rel="stylesheet" href="../../../../css/main.css" />
 
 	<canvas
 
@@ -63,7 +70,7 @@
                 <div id="loading-circle">
                     <h2>LOADING</h2>
                     <p>加载过慢请开启缓存 浏览器默认开启</p>
-                    <img src="../../images/loading.gif" />
+                    <img src="../../../../images/loading.gif" />
                 </div>
             </div>
         </transition>
@@ -73,27 +80,27 @@
             <span>FRUITS BLOG</span>
         </a>
         
-        <a href="../../index.html">
+        <a href="../../../../index.html">
             <i class="fa-solid fa-house fa-fw"></i>
             <span>&ensp;Home</span>
         </a>
         
-        <a href="../../about">
+        <a href="../../../../about">
             <i class="fa-solid fa-id-card fa-fw"></i>
             <span>&ensp;About</span>
         </a>
         
-        <a href="../../archives">
+        <a href="../../../../archives">
             <i class="fa-solid fa-box-archive fa-fw"></i>
             <span>&ensp;Archives</span>
         </a>
         
-        <a href="../../categories">
+        <a href="../../../../categories">
             <i class="fa-solid fa-bookmark fa-fw"></i>
             <span>&ensp;Categories</span>
         </a>
         
-        <a href="../../tags">
+        <a href="../../../../tags">
             <i class="fa-solid fa-tags fa-fw"></i>
             <span>&ensp;Tags</span>
         </a>
@@ -107,7 +114,7 @@
         <transition name="slide">
             <div class="items" v-show="showMenuItems">
                 
-                <a href="../../index.html">
+                <a href="../../../../index.html">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-house fa-fw"></i>
@@ -116,7 +123,7 @@
                     </div>
                 </a>
                 
-                <a href="../../about">
+                <a href="../../../../about">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-id-card fa-fw"></i>
@@ -125,7 +132,7 @@
                     </div>
                 </a>
                 
-                <a href="../../archives">
+                <a href="../../../../archives">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-box-archive fa-fw"></i>
@@ -134,7 +141,7 @@
                     </div>
                 </a>
                 
-                <a href="../../categories">
+                <a href="../../../../categories">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-bookmark fa-fw"></i>
@@ -143,7 +150,7 @@
                     </div>
                 </a>
                 
-                <a href="../../tags">
+                <a href="../../../../tags">
                     <div class="item">
                         <div style="min-width: 20px; max-width: 50px; width: 10%">
                             <i class="fa-solid fa-tags fa-fw"></i>
@@ -161,87 +168,75 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                linux
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="../dns/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                dns
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="../%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                反向代理
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="../blog/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                blog
-            </a>
+            <div class="article">
+    <div>
+        <h1>6.debian12安装idea</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/1/27
         </span>
         
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/11/9</div>
-            <a href="../../2025/11/09/1-%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81%E6%8E%A8%E9%80%81%E4%BB%A3%E7%A0%81/">
-                <h3>1.使用密钥连接服务器、推送代码</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="" style="color: #ff7d73">
-                            linux
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>linux基础使用：安装软件</p>
+<span id="more"></span>
+<p>使用的系统为debian12，本文演示安装IDEA</p>
+<h2 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h2><p><img src="https://image.bjyt.de/storage/uploads/202601/27/Pasted%20image%2020260127222132.png" alt="Pasted image 20260127222132.png"><br>在linux下默认也会直接选择linux的版本，下载下来后是一个压缩包</p>
+<h2 id="二、解压运行"><a href="#二、解压运行" class="headerlink" title="二、解压运行"></a>二、解压运行</h2><pre><code class="language-bash">root@fruits:~/sofe/idea-IU-253.30387.90/bin# pwd
+/root/sofe/idea-IU-253.30387.90/bin
+root@fruits:~/sofe/idea-IU-253.30387.90/bin# 
+</code></pre>
+<p>解压之后进入bin目录<br>在此处直接运行脚本也能够运行</p>
+<pre><code class="language-bash">root@fruits:~/sofe/idea-IU-253.30387.90/bin# ./idea.sh
+</code></pre>
+<p>但是总不能每次运行都要去运行这个脚本</p>
+<h2 id="三、创建桌面快捷方式运行"><a href="#三、创建桌面快捷方式运行" class="headerlink" title="三、创建桌面快捷方式运行"></a>三、创建桌面快捷方式运行</h2><h4 id="步骤-1：创建并编辑-desktop-文件"><a href="#步骤-1：创建并编辑-desktop-文件" class="headerlink" title="步骤 1：创建并编辑 desktop 文件"></a>步骤 1：创建并编辑 desktop 文件</h4><p>首先，使用文本编辑器创建 IDEA 的桌面配置文件，执行以下命令：</p>
+<pre><code class="language-bash">	nano /usr/share/applications/idea.desktop
+</code></pre>
+<h4 id="步骤-2：粘贴以下配置内容"><a href="#步骤-2：粘贴以下配置内容" class="headerlink" title="步骤 2：粘贴以下配置内容"></a>步骤 2：粘贴以下配置内容</h4><p>将下面的内容复制到编辑器中，<strong>注意修改<code>Exec</code>和<code>Icon</code>的路径为你自己的 IDEA 解压路径</strong>：</p>
+<pre><code class="language-ini">[Desktop Entry] 
+Type=Application
+Name=IntelliJ IDEA (Native Launcher)
+Exec=/root/sofe/idea-IU-253.30387.90/bin/idea
+# 这里替换为你实际的idea.png路径 
+Icon=/root/sofe/idea-IU-253.30387.90/bin/idea.png
+Terminal=false
+Categories=Development;IDE;Java;
+StartupWMClass=jetbrains-idea
+Keywords=IntelliJ;IDEA;Java;IDE;
+</code></pre>
+<h4 id="步骤-3：保存并退出"><a href="#步骤-3：保存并退出" class="headerlink" title="步骤 3：保存并退出"></a>步骤 3：保存并退出</h4><p>在 nano 编辑器中，按<code>Ctrl+O</code>保存，按<code>Enter</code>确认文件名，再按<code>Ctrl+X</code>退出。</p>
+<h4 id="步骤-4：赋予执行权限"><a href="#步骤-4：赋予执行权限" class="headerlink" title="步骤 4：赋予执行权限"></a>步骤 4：赋予执行权限</h4><pre><code class="language-bash">chmod +x /usr/share/applications/idea.desktop
+</code></pre>
+<p>以上是对于一些支持比较不全的软件，但是比如idea比较友好<br>可以直接通过idea内的工具直接创建</p>
+<ol>
+<li>先从终端启动</li>
+</ol>
+<pre><code class="language-bash">root@fruits:~/sofe/idea-IU-253.30387.90/bin# ./idea
+</code></pre>
+<ol start="2">
+<li>启动完毕后在idea内生成桌面图标</li>
+</ol>
+<p><img src="https://image.bjyt.de/storage/uploads/202601/27/Pasted%20image%2020260127224733.png" alt="Pasted image 20260127224733.png"><br>点击创建桌面条目即可</p>
+<p>四、效果图<br><img src="https://image.bjyt.de/storage/uploads/202601/27/Pasted%20image%2020260127223157.png" alt="Pasted image 20260127223157.png"></p>
+
     </div>
+    
+    
+    
+    <div id="comment">
+        <div id="gitalk-container"></div>
+    </div>
+    
+    
+    
+    
     
 </div>
 
@@ -272,7 +267,27 @@
         </transition>
         
     </div>
-    <script src="../../js/main.js"></script>
+    <script src="../../../../js/main.js"></script>
+    
+    
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "Ov23litWytw5a9YYfjpn",
+        clientSecret: "263220185a44717917fc30ea10b93f2aab160f54",
+        repo: "comments",
+        owner: "yating1022",
+        admin: "yating1022".split(","),
+        language: "en, zh-CN, zh-TW, es-ES, fr, ru, de",
+        id: location.pathname,
+        
+    })
+    gitalk.render("gitalk-container");
+</script>
+
+
+
+
     
 </body>
 </html>
