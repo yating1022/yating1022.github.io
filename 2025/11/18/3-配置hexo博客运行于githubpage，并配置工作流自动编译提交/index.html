@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>3.配置hexo博客运行于githubpage，并配置工作流自动编译提交 | Fruits Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在githubPage上运行博客，实现无服务器博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.配置hexo博客运行于githubpage，并配置工作流自动编译提交">
+<meta property="og:url" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/index.html">
+<meta property="og:site_name" content="Fruits Blog">
+<meta property="og:description" content="在githubPage上运行博客，实现无服务器博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119092030969.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119092717840.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093113667.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093138976.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093206576.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093426844.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093448841.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093505773.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093519619.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093604824.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093924111.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119093945516.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119094003346.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119094220346.png">
+<meta property="og:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119094258230.png">
+<meta property="article:published_time" content="2025-11-18T11:54:47.000Z">
+<meta property="article:modified_time" content="2026-04-24T03:18:15.658Z">
+<meta property="article:author" content="Fruits">
+<meta property="article:tag" content="blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/image-20251119092030969.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="Fruits Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="../../../../favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="../../../../css/style.css">
+
+  
+    
+<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">Fruits Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../../../index.html" id="subtitle">记录探索的博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="../../../../atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yating1022.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-3-配置hexo博客运行于githubpage，并配置工作流自动编译提交" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time class="dt-published" datetime="2025-11-18T11:54:47.000Z" itemprop="datePublished">2025-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      3.配置hexo博客运行于githubpage，并配置工作流自动编译提交
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 在githubPage上运行博客，实现无服务器博客</p>
+<span id="more"></span>
+
+
+
+<h1 id="0-前置准备"><a href="#0-前置准备" class="headerlink" title="0.前置准备"></a>0.前置准备</h1><ul>
+<li>安装node20.19.0</li>
+</ul>
+<p>​		在windows或者linux安装nvm，教程如下</p>
+<p>​		<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Gns2sFPtXAMy6dDqexsG1A">https://mp.weixin.qq.com/s/Gns2sFPtXAMy6dDqexsG1A</a></p>
+<p>​		一定要使用20.19.0版本，否则可能跟我下面的是源代码仓库版本不符</p>
+<h1 id="1-配置基本信息"><a href="#1-配置基本信息" class="headerlink" title="1.配置基本信息"></a>1.配置基本信息</h1><p>实现效果，需要配置两个仓库，第一个就是主要用来交互的源代码仓库,fork我的源代码仓库</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yating1022/hexo-blog-source">https://github.com/yating1022/hexo-blog-source</a></p>
+<p>创建一个空仓库，不需要创建readme.md仓库名称以你的github用户名为名字+github.io，比如我的是yating1022，那我仓库名称就是 yating1022.github.io</p>
+<p>如下</p>
+<p><img src="image-20251119092030969.png" alt="image-20251119092030969"></p>
+<p>复制github.io仓库的地址备用<br><img src="image-20251119092717840.png" alt="image-20251119092717840"></p>
+<p>修改hexo-blog-source仓库配置文件 <code>_config.yaml</code></p>
+<p>修改如下信息</p>
+<p><img src="image-20251119093113667.png" alt="image-20251119093113667"></p>
+<p>此处为主页显示的信息，改为自己的</p>
+<p><img src="image-20251119093138976.png" alt="image-20251119093138976"></p>
+<p>此处仅修改url，其余不要动</p>
+<p><img src="image-20251119093206576.png" alt="image-20251119093206576"></p>
+<p>修改为刚才复制的仓库地址</p>
+<p>随后将代码push</p>
+<h1 id="2-配置工作流"><a href="#2-配置工作流" class="headerlink" title="2.配置工作流"></a>2.配置工作流</h1><p>工作流不用修改，但是环境变量得修改，先去获取一个token，用来给源仓库的工作流推送代码</p>
+<p><img src="image-20251119093426844.png" alt="image-20251119093426844"></p>
+<p><img src="image-20251119093448841.png" alt="image-20251119093448841"></p>
+<p><img src="image-20251119093505773.png" alt="image-20251119093505773"></p>
+<p><img src="image-20251119093519619.png" alt="image-20251119093519619"></p>
+<p><img src="image-20251119093604824.png" alt="image-20251119093604824"></p>
+<p>把repo权限全选，保存后会有一个token，复制备用</p>
+<p>来到hexo-blog-source源代码仓库</p>
+<p><img src="image-20251119093924111.png" alt="image-20251119093924111"></p>
+<p><img src="image-20251119093945516.png" alt="image-20251119093945516"></p>
+<p><img src="image-20251119094003346.png" alt="image-20251119094003346"></p>
+<p>名字写HEXO_DEPLOY_TOKEN，值写上面得到的token值</p>
+<p>至此就已经配置完成</p>
+<h1 id="3-编写博文"><a href="#3-编写博文" class="headerlink" title="3.编写博文"></a>3.编写博文</h1><p>我习惯使用typora，这是破解版的仓库地址</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/main-studio/TyporaCrack">https://github.com/main-studio/TyporaCrack</a></p>
+<p>下载安装后进入配置</p>
+<p><img src="image-20251119094220346.png" alt="image-20251119094220346"></p>
+<p><img src="image-20251119094258230.png" alt="image-20251119094258230"></p>
+<p>如图配置</p>
+<p>编写博文时，只需要在源代码仓库打开终端，输入</p>
+<pre><code class="language-bash">hexo n &quot;博文标题名称&quot;
+</code></pre>
+<p>就会自动在source_posts目录自动创建博文的md文件，使用typora打开，在里面写，图片直接复制进去</p>
+<p>编写完毕后，把源代码仓库推送到github，就会自动更新页面到github上，最后访问的地址是</p>
+<p><a target="_blank" rel="noopener" href="https://github用户名.github.io/">https://github用户名.github.io</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://yating1022.github.io/2025/11/18/3-%E9%85%8D%E7%BD%AEhexo%E5%8D%9A%E5%AE%A2%E8%BF%90%E8%A1%8C%E4%BA%8Egithubpage%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91%E6%8F%90%E4%BA%A4/" data-id="cuidadmIKs_qY3QhbPjsMrmOg" data-title="3.配置hexo博客运行于githubpage，并配置工作流自动编译提交" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/blog/" rel="tag">blog</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../30/4-%E9%80%9A%E8%BF%87cloudflare%E8%A7%A3%E6%9E%90dns%E5%88%B0%E6%8C%87%E5%AE%9Aip/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          4.通过cloudflare解析dns到指定ip
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../09/2-ubuntu%E8%AE%BE%E7%BD%AEroot%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">2.ubuntu设置root用户登录</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/blog/" rel="tag">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/dns/" rel="tag">dns</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" rel="tag">反向代理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="../../../../tags/blog/" style="font-size: 10px;">blog</a> <a href="../../../../tags/dns/" style="font-size: 10px;">dns</a> <a href="../../../../tags/linux/" style="font-size: 10px;">linux</a> <a href="../../../../tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" style="font-size: 10px;">反向代理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2025/11/">十一月 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../../2026/02/05/7-%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/">7.配置vscode远程开发</a>
+          </li>
+        
+          <li>
+            <a href="../../../../2026/01/27/6-debian12%E5%AE%89%E8%A3%85idea/">6.debian12安装idea</a>
+          </li>
+        
+          <li>
+            <a href="../../../12/28/6-Java%E8%A7%86%E9%A2%91Ftp%E6%95%99%E7%A8%8B/">6.Java视频Ftp教程</a>
+          </li>
+        
+          <li>
+            <a href="../../../12/01/5-%E5%88%A9%E7%94%A8lucky%E5%8E%BB%E8%BF%9B%E8%A1%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%BD%91%E7%AB%99/">5.利用lucky去进行反向代理网站</a>
+          </li>
+        
+          <li>
+            <a href="../../30/4-%E9%80%9A%E8%BF%87cloudflare%E8%A7%A3%E6%9E%90dns%E5%88%B0%E6%8C%87%E5%AE%9Aip/">4.通过cloudflare解析dns到指定ip</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 Fruits<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="../../../../js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="../../../../fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
